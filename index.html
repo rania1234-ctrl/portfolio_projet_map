@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Découvrez la Tunisie région par région avec une carte interactive magnifique">
+    <title>🗺️ Carte Interactive de la Tunisie</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preload" href="assets/image.svg" as="image">
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <button id="themeToggle" class="theme-toggle" aria-label="Changer le thème">
+        <svg class="sun-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg class="moon-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </button>
+
+    <main>
+        <!-- Hero Title -->
+        <div class="hero-title">
+            <h1>🇹🇳 Découvre la Tunisie</h1>
+            <p>Explore les 24 régions sur une carte interactive</p>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <input 
+                type="text" 
+                id="regionSearch" 
+                class="search-input" 
+                placeholder="🔍 Recherche une région (Tunis, Sfax, Djerba...)"
+                aria-label="Rechercher une région"
+            >
+            <div id="searchResults" class="search-results" role="listbox"></div>
+        </div>
+
+        <div class="layout">
+            <!-- Map Card -->
+            <div id="map-container" class="map-card">
+                <div class="map-toolbar">
+                    <div class="map-toolbar-left">
+                        <span class="map-toolbar-title">🗺️ Carte Interactive</span>
+                        <span class="map-toolbar-caption" id="mapHint">
+                            Clique sur une région pour découvrir ses secrets
+                        </span>
+                    </div>
+                    <div class="map-zoom-controls">
+                        <button type="button" id="mapZoomOut" aria-label="Zoom arrière" title="Zoom arrière">−</button>
+                        <span id="mapZoomLevel">100%</span>
+                        <button type="button" id="mapZoomIn" aria-label="Zoom avant" title="Zoom avant">+</button>
+                        <button type="button" id="mapZoomReset" class="map-zoom-reset" title="Réinitialiser">Reset</button>
+                    </div>
+                </div>
+
+                <div class="map-inner">
+                    <object
+                        id="tunisia-map-object"
+                        type="image/svg+xml"
+                        data="assets/image.svg"
+                        aria-label="Carte interactive de la Tunisie"
+                    >
+                        Votre navigateur ne supporte pas les SVG
+                    </object>
+                </div>
+
+                <!-- Stats -->
+                <div class="map-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">24</span>
+                        <span class="stat-label">Régions</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">163 610</span>
+                        <span class="stat-label">km²</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">12M+</span>
+                        <span class="stat-label">Habitants</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Info Card -->
+            <aside class="info-card" aria-live="polite" aria-atomic="true">
+                <div class="info-header">
+                    <h2 id="regionTitle">Choisis une région</h2>
+                    <p id="regionSubtitle">Clique sur la carte pour explorer</p>
+                    <p id="regionMeta" class="region-meta"></p>
+                    <span id="regionBadge" class="region-badge" hidden>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                        Capitale
+                    </span>
+                </div>
+
+                <div class="info-media">
+                    <div class="image-skeleton" id="imageSkeleton"></div>
+                    <img id="regionImage" alt="" loading="lazy" />
+                </div>
+
+                <div class="info-body">
+                    <p id="regionDesc"></p>
+                </div>
+
+                <div class="info-actions" id="infoActions" hidden>
+                    <button class="action-btn" id="shareBtn" title="Partager">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <circle cx="18" cy="5" r="3"></circle>
+                            <circle cx="6" cy="12" r="3"></circle>
+                            <circle cx="18" cy="19" r="3"></circle>
+                            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                        </svg>
+                        Partager
+                    </button>
+                    <button class="action-btn" id="favoriteBtn" title="Favori">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                        </svg>
+                        Favoris
+                    </button>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Toast -->
+        <div id="toast" class="toast" role="alert"></div>
+
+        <noscript>
+            <div class="noscript-message">
+                ⚠️ Active JavaScript pour profiter de la carte interactive !
+            </div>
+        </noscript>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
