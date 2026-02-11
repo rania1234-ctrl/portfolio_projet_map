@@ -48,13 +48,13 @@ Le projet met l’accent sur l’ergonomie, l’accessibilité et l’expérienc
 ### 🌞 Mode Clair
 
 <p align="center">
-  <img src="images/site mode claire.png" width="350">
+  <img src="images/sitemodeclaire.png" width="350">
 </p>
 
 ### 🌙 Mode Sombre
 
 <p align="center">
-  <img src="images/site mode sombre.png" width="350">
+  <img src="images/sitemodesombre.png" width="350">
 </p>
 
 ---
